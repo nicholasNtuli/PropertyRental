@@ -51,7 +51,7 @@ end
 ruby '3.4.5'
 
 # Authentication
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 4.9.4'
 gem 'devise-jwt', '~> 0.11.0'
 gem 'jsonapi-serializer'
 
