@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-  enum role: { guest: 0, user: 1, admin: 2 }
+  enum :role, { guest: 0, user: 1, admin: 2 }
 
   #Associations
   has_many :properties, dependent: :destroy
