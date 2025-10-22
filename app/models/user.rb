@@ -3,14 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   
   include Devise::JWT::RevocationStrategies::JTIMatcher
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-  enum :role, { guest: 0, user: 1, admin: 2 }
+  enum :role, { guest: 0, host: 1, admin: 2 }
 
-  #Associations
+  # Associations
   has_many :properties, dependent: :destroy
   has_many :bookings, dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
 
-  #Methos
+  # Methods
   def full_name
     "#{first_name} #{last_name}"
   end

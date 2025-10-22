@@ -50,13 +50,17 @@ class PropertySerializer
         end
     end
 
-    attribute :reviwe_summary do |property, params|
+    attribute :review_summary do |property, params|
         if params && params[:detailed]
             {
                 average_rating: property.average_rating,
                 total_reviews: property.reviews_count,
-                rating_distribution: property.rating.group(:rating).count
+                rating_distribution: property.reviews.group(:rating).count
             }
         end
+    end
+
+    attribute :review_count do |property|
+        property.reviews.size
     end
 end

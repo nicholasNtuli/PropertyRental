@@ -1,14 +1,14 @@
 class Booking < ApplicationRecord
-  enum status: { pending: 0, confirmed: 1, canceled: 2, completed: 3 }
+  enum :status, { pending: 0, confirmed: 1, cancelled: 2, completed: 3 }
 
   belongs_to :property
   belongs_to :user
 
   validates :check_in, :check_out, :total_price, presence: true
-  validates :check_out_after_check_in
-  validates :property_available
+  validate :check_out_after_check_in
+  validate :property_available
 
-  scope :upcoming, -> { where('check_in >= ?', Date.today).order(:check_in) }
+  scope :upcoming, -> { where('check_in > ?', Date.today).order(:check_in) }
   scope :past, -> { where('check_out < ?', Date.today).order(check_out: :desc) }
   scope :current, -> { where('check_in <= ? AND check_out >= ?', Date.today, Date.today) }
 
